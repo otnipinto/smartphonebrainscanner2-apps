@@ -22,7 +22,7 @@ SOURCES += main.cpp \
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
-include(/Users/arks/github/smartphonebrainscanner2/smartphonebrainscanner2-core/src/sbs2.pri)
+include(../../smartphonebrainscanner2-core/src/sbs2.pri)
 
 HEADERS += \
     mycallback.h
