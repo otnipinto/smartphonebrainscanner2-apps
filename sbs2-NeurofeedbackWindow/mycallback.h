@@ -2,6 +2,7 @@
 #define MYCALLBACK_H
 
 #include <sbs2callback.h>
+#include <sbs2datahandler.h>
 
 class MyCallback : public Sbs2Callback
 {
@@ -13,7 +14,7 @@ public:
 signals:
     
 public slots:
-    
+    void spectrogramUpdatedSlot();
 };
 
 #endif // MYCALLBACK_H

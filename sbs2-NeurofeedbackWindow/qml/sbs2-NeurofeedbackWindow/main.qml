@@ -1,8 +1,9 @@
 import QtQuick 1.0
 
 Rectangle {
-    width: 360
-    height: 360
+    width: 1280
+    height: 760
+    id: page
 
-    Visualization{}
+    Visualization{anchors.centerIn: parent}
 }
