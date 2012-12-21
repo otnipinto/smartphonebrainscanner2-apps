@@ -15,10 +15,17 @@ QML_IMPORT_PATH =
 # CONFIG += qdeclarative-boostable
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    mycallback.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
 include(../../smartphonebrainscanner2-core/src/sbs2.pri)
+
+HEADERS += \
+    mycallback.h
+
+OTHER_FILES += \
+    qml/sbs2-NeurofeedbackWindow/Visualization.qml
