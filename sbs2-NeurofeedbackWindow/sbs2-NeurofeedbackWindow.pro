@@ -27,5 +27,5 @@ include(../../smartphonebrainscanner2-core/src/sbs2.pri)
 HEADERS += \
     mycallback.h
 
-OTHER_FILES += \
-    qml/sbs2-NeurofeedbackWindow/Visualization.qml
+RESOURCES += \
+    resources.qrc
