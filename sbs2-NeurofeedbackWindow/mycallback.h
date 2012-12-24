@@ -11,8 +11,19 @@ public:
     explicit MyCallback(QObject *parent = 0);
     void getData(Sbs2Packet *packet);
 
+private:
+    void calculateValue();
+
+private:
+    int spectrogramSamples;
+    int spectrogramLength;
+    int spectrogramDelta;
+
+
+
 signals:
-    
+    void valueSignal(QVariant value);
+
 public slots:
     void spectrogramUpdatedSlot();
 };
