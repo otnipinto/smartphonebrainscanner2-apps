@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/arks/svn/smartphonebrainscanner2/!svn/ver/100/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares
+END
+Bin.qml
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/arks/svn/smartphonebrainscanner2/!svn/ver/115/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares/Bin.qml
+END
+MyTextInput.qml
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/arks/svn/smartphonebrainscanner2/!svn/ver/117/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares/MyTextInput.qml
+END
+Button.qml
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/arks/svn/smartphonebrainscanner2/!svn/ver/117/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares/Button.qml
+END
+MusicalSquare.qml
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/arks/svn/smartphonebrainscanner2/!svn/ver/115/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares/MusicalSquare.qml
+END
+Scalpmap.qml
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/arks/svn/smartphonebrainscanner2/!svn/ver/117/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares/Scalpmap.qml
+END
+SetupScreen.qml
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/arks/svn/smartphonebrainscanner2/!svn/ver/117/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares/SetupScreen.qml
+END
+Visualization.qml
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/arks/svn/smartphonebrainscanner2/!svn/ver/117/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares/Visualization.qml
+END
+main.qml
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/arks/svn/smartphonebrainscanner2/!svn/ver/115/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares/main.qml
+END
+Electrode.qml
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/arks/svn/smartphonebrainscanner2/!svn/ver/117/trunk/apps/sbs2-musicalSquares/sbs2-musicalSquares/qml/sbs2musicalSquares/Electrode.qml
+END
