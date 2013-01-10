@@ -3,8 +3,7 @@
 MyCallback::MyCallback(QObject *parent) :
     Sbs2Callback(parent)
 {
-    QObject::connect(this,SIGNAL(spectrogramUpdated()),this,SLOT(spectrogramUpdatedSlot()));
-
+    QObject::connect(sbs2DataHandler,SIGNAL(spectrogramUpdated()),this,SLOT(spectrogramUpdatedSlot()));
     //Parameteres of the spectrogram
     spectrogramSamples = 128; //Window size
     spectrogramLength = 128; //FIXED to 128, indicates the sampling rate
@@ -27,16 +26,42 @@ void MyCallback::getData(Sbs2Packet *packet)
 
 void MyCallback::spectrogramUpdatedSlot()
 {
-    qDebug() << __PRETTY_FUNCTION__;
     calculateValue();
 }
 
 void MyCallback::calculateValue()
 {
-    qDebug() << __PRETTY_FUNCTION__;
-    qDebug() << sbs2DataHandler->getPowerValues();
+    int low = 10;
+    int high = 12;
+    double power = 0;
 
-    double value = 0.0;
+    QList<double> o1;
+    QList<double> o2;
+
+    for (int row = 0; row < sbs2DataHandler->getPowerValues()->dim1(); ++row) {
+        if (!(Sbs2Common::getChannelNames()->at(row) == "O1" || Sbs2Common::getChannelNames()->at(row) == "O2"))
+            continue;
+
+        for (int column = 0; column < sbs2DataHandler->getPowerValues()->dim2(); ++column) {
+            if (column < low || column > high)
+            continue;
+
+            if (Sbs2Common::getChannelNames()->at(row) == "O1")
+            o1.append((*sbs2DataHandler->getPowerValues())[row][column]);
+            if (Sbs2Common::getChannelNames()->at(row) == "O2")
+            o2.append((*sbs2DataHandler->getPowerValues())[row][column]);
+        }
+    }
+
+    for (int i=0; i<o1.size(); ++i) {
+        power += o1.at(i);
+    }
+    for (int i=0; i<o2.size(); ++i) {
+        power += o2.at(i);
+    }
+
+    power /= (double)(o1.size()+o2.size());
+
     //Here goes the logic for calculating value from the channels spectrogram
-    emit valueSignal(value);
+    emit valueSignal(power);
 }
