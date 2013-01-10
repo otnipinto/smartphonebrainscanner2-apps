@@ -18,8 +18,12 @@ Rectangle {
 
     function valueSlot(value) {
         console.log("valueSlot() called with " + value);
+        visualization.setValue(value);
     }
 
     SetupScreen {}
-    Visualization{anchors.centerIn: parent}
+    Visualization{
+        id: visualization
+        anchors.centerIn: parent
+    }
 }

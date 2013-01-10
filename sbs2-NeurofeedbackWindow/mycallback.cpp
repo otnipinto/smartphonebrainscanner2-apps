@@ -41,18 +41,12 @@ void MyCallback::calculateValue()
 
     double val;
 
-    qDebug() << "Rows, Cols in data: " << sbs2DataHandler->getPowerValues()->dim1() << ", " <<
-                sbs2DataHandler->getPowerValues()->dim2();
-
     for (int row = 0; row < sbs2DataHandler->getPowerValues()->dim1(); ++row) {
         if (!(Sbs2Common::getChannelNames()->at(row) == "O1" || Sbs2Common::getChannelNames()->at(row) == "O2"))
             continue;
 
         for (int column = 0; column < sbs2DataHandler->getPowerValues()->dim2(); ++column) {
             val = (*sbs2DataHandler->getPowerValues())[row][column];
-
-            if (val > 0.0)
-                qDebug() << "Found a non-zero " << val << " on " << row << ", " << column;
 
             if (column < low || column > high)
                 continue;
@@ -70,8 +64,6 @@ void MyCallback::calculateValue()
     for (int i=0; i<o2.size(); ++i) {
         power += o2.at(i);
     }
-
-    qDebug() << "Power & Size of arrays:  " << power << " - " << o1.size() << ", " << o2.size();
 
     power /= (double)(o1.size()+o2.size());
 
