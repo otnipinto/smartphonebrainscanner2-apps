@@ -22,7 +22,7 @@ Rectangle {
     }
 
     SetupScreen {}
-    Visualization{
+    Visualization {
         id: visualization
         anchors.centerIn: parent
     }

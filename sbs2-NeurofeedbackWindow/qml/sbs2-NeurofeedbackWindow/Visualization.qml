@@ -8,7 +8,7 @@ Rectangle {
     property double currentValue: 0.0
     property double baselineValue: 20.0
     property double power: 0.0
-    property double maxPower: 100.0
+    property double maxPower: 200.0
 
     function setValue(value) {
         currentValue = value;
@@ -16,10 +16,13 @@ Rectangle {
             maxPower = value;
             console.debug("New max: " + maxPower);
         }*/
+        if (currentValue > maxPower)
+            currentValue = maxPower;
         if (value < baselineValue && value > 10) {
             baselineValue = value;
             console.debug("New min: " + baselineValue);
         }
+        squareVisualiztion.width = currentValue;
         setColor();
     }
 
@@ -37,6 +40,11 @@ Rectangle {
           //  return Qt.rgba(0.5,0.5,0.5,1);
 
         power = (currentValue - baselineValue) / (maxPower - baselineValue);
+        if (power < 0.0)
+            power = 0.0;
+        if (power > 1.0)
+            power = 1.0;
+
 /*
         if (power < 0.6 * maxPower)
         {
@@ -56,8 +64,10 @@ Rectangle {
 */
 
         r = power;
-        g = 1.0 - (power > 0.5 ? power - 0.5 : power);
-        b = 1.0-power;
+        var tmpg = power - 0.5;
+        g = 1.0 - 2.0*(tmpg > 0 ? tmpg : -tmpg);
+        b = 1.0 - power*2.0;
+        b = b > 1.0 ? 1.0 : b
 
         //return Qt.rgba(r,g,b,1)
         squareVisualiztion.color = Qt.rgba(r,g,b,1);
