@@ -29,5 +29,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QObject::connect(app.data(), SIGNAL(aboutToQuit()), sbs2DataReader, SLOT(aboutToQuit()));
 	QObject::connect((QObject*)viewer.engine(), SIGNAL(quit()), app.data(), SLOT(quit()));
 
+    QObject::connect(rootObject,SIGNAL(startRecording(QString,QString)),
+                     myCallback,SLOT(startRecording(QString,QString)));
+
+    QObject::connect(rootObject,SIGNAL(turnSpectrogramOff()),myCallback,SLOT(turnChannelSpectrogramOff()));
+    QObject::connect(rootObject,SIGNAL(turnSpectrogramOn(int,int,int)),myCallback,SLOT(turnChannelSpectrogramOn(int,int,int)));
+
+
     return app->exec();
 }

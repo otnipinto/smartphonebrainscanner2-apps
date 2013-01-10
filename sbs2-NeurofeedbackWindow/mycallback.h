@@ -19,8 +19,6 @@ private:
     int spectrogramLength;
     int spectrogramDelta;
 
-
-
 signals:
     void valueSignal(QVariant value);
 

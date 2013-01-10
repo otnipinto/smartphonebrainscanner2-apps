@@ -122,8 +122,10 @@ Rectangle {
         y: 330
         x: 0
         onClicked: {
-            page.state = "show"
-            page.event("STARTED;"+ user.text + ";"+description.text)
+            page.state = "show";
+            //page.event("STARTED;"+ user.text + ";"+description.text)
+            page.startRecording(user.text, description.text);
+
         }
     }
 

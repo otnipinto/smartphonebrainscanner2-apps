@@ -10,15 +10,16 @@ Rectangle {
     id: page
     property string title: "NeurofeedbackWindow"
 
-    function valueSlot(value)
-    {
+    signal startRecording(string user, string description)
+    signal stopRecording()
+    signal turnSpectrogramOn(int samples, int length, int delta)
+    signal turnSpectrogramOff()
+    signal event(string event)
 
+    function valueSlot(value) {
+        console.log("valueSlot() called with " + value);
     }
 
-    SetupScreen{}
+    SetupScreen {}
     Visualization{anchors.centerIn: parent}
-
-    function event(msg) {
-        console.debug(msg);
-    }
 }

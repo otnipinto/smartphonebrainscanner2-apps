@@ -27,15 +27,16 @@ void MyCallback::getData(Sbs2Packet *packet)
 
 void MyCallback::spectrogramUpdatedSlot()
 {
+    qDebug() << __PRETTY_FUNCTION__;
     calculateValue();
 }
 
 void MyCallback::calculateValue()
 {
+    qDebug() << __PRETTY_FUNCTION__;
     qDebug() << sbs2DataHandler->getPowerValues();
 
     double value = 0.0;
     //Here goes the logic for calculating value from the channels spectrogram
     emit valueSignal(value);
-
 }
