@@ -1,35 +1,29 @@
 import Qt 4.7
 
 Rectangle {
+    id: button
     width: 180
     height: 60
     color: "black"
-    property string desc
-    x: 0
-    y: 0
+    property alias text : label.text
 
+    signal clicked()
 
-
-    Text {
-	color: "white"
-	text: parent.desc
-	font.pointSize: 20
-	anchors.centerIn: parent
-	font.bold: true
+    Component.onCompleted: {
+        mouseArea.clicked.connect(button.clicked)
     }
 
-    MouseArea
-    {
-	anchors.fill: parent
-	onClicked:
-	{
-	    if (parent.desc == "quit")
-		Qt.quit();
-	    if (parent.desc == "start")
-	    {
-		page.state = "show";
-		page.event("STARTED;"+ user.text + ";"+description.text);
-	    }
-	}
+    Text {
+        id: label
+        color: "white"
+        text: parent.desc
+        font.pointSize: 20
+        anchors.centerIn: parent
+        font.bold: true
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
     }
 }

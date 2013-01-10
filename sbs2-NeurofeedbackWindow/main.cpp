@@ -2,8 +2,8 @@
 #include "qmlapplicationviewer.h"
 #include <QtDeclarative>
 
-#include <mycallback.h>
-#include <hardware/emotiv/sbs2emotivdatareader.h>
+#include "mycallback.h"
+#include "hardware/emotiv/sbs2emotivdatareader.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -18,7 +18,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QmlApplicationViewer viewer;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/sbs2-NeurofeedbackWindow/main.qml"));
-    viewer.showExpanded();
+    viewer.setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    viewer.showMaximized();
+    //viewer.showExpanded();
 
     QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
 
@@ -26,7 +28,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     QObject::connect(app.data(), SIGNAL(aboutToQuit()), sbs2DataReader, SLOT(aboutToQuit()));
 	QObject::connect((QObject*)viewer.engine(), SIGNAL(quit()), app.data(), SLOT(quit()));
-
 
     return app->exec();
 }

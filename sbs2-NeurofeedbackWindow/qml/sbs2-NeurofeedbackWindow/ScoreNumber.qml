@@ -1,25 +1,27 @@
 import QtQuick 1.0
 
 Rectangle {
+    id: scoreNumber
     width: 100
     height: width
-    id: scoreNumber
     color: "black"
     property int value: 0
-    Text
-    {
-	color: {if (parent.color == "#000000") return "red"; return "black"}
-	anchors.centerIn: parent
-	text: parent.value
+
+    signal clicked()
+
+    Component.onCompleted: {
+        mouseArea.clicked.connect(scoreNumber.clicked)
     }
 
-    MouseArea
-    {
-	anchors.fill: parent
-	onClicked:
-	{
-	    score.setScore(scoreNumber.value)
-	}
+    Text {
+        color: parent.color == "#000000" ? "red" : "black"
+        anchors.centerIn: parent
+        text: ""+parent.value
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
     }
 
 }
