@@ -21,7 +21,8 @@ void MyCallback::getData(Sbs2Packet *packet)
     setPacket(packet);
 
     sbs2DataHandler->record();
-    sbs2DataHandler->spectrogramChannel();
+    if (isRecording)
+        sbs2DataHandler->spectrogramChannel();
 }
 
 void MyCallback::spectrogramUpdatedSlot()
@@ -33,10 +34,12 @@ void MyCallback::calculateValue()
 {
     int low = 10;
     int high = 12;
-    double power = 0.0;
+    double power = 1.5;
 
     QList<double> o1;
     QList<double> o2;
+
+    double val;
 
     qDebug() << "Rows, Cols in data: " << sbs2DataHandler->getPowerValues()->dim1() << ", " <<
                 sbs2DataHandler->getPowerValues()->dim2();
@@ -46,6 +49,11 @@ void MyCallback::calculateValue()
             continue;
 
         for (int column = 0; column < sbs2DataHandler->getPowerValues()->dim2(); ++column) {
+            val = (*sbs2DataHandler->getPowerValues())[row][column];
+
+            if (val > 0.0)
+                qDebug() << "Found a non-zero " << val << " on " << row << ", " << column;
+
             if (column < low || column > high)
                 continue;
 
