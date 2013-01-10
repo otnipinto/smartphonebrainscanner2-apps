@@ -33,10 +33,13 @@ void MyCallback::calculateValue()
 {
     int low = 10;
     int high = 12;
-    double power = 0;
+    double power = 0.0;
 
     QList<double> o1;
     QList<double> o2;
+
+    qDebug() << "Rows, Cols in data: " << sbs2DataHandler->getPowerValues()->dim1() << ", " <<
+                sbs2DataHandler->getPowerValues()->dim2();
 
     for (int row = 0; row < sbs2DataHandler->getPowerValues()->dim1(); ++row) {
         if (!(Sbs2Common::getChannelNames()->at(row) == "O1" || Sbs2Common::getChannelNames()->at(row) == "O2"))
@@ -44,12 +47,12 @@ void MyCallback::calculateValue()
 
         for (int column = 0; column < sbs2DataHandler->getPowerValues()->dim2(); ++column) {
             if (column < low || column > high)
-            continue;
+                continue;
 
             if (Sbs2Common::getChannelNames()->at(row) == "O1")
-            o1.append((*sbs2DataHandler->getPowerValues())[row][column]);
+                o1.append((*sbs2DataHandler->getPowerValues())[row][column]);
             if (Sbs2Common::getChannelNames()->at(row) == "O2")
-            o2.append((*sbs2DataHandler->getPowerValues())[row][column]);
+                o2.append((*sbs2DataHandler->getPowerValues())[row][column]);
         }
     }
 
@@ -59,6 +62,8 @@ void MyCallback::calculateValue()
     for (int i=0; i<o2.size(); ++i) {
         power += o2.at(i);
     }
+
+    qDebug() << "Power & Size of arrays:  " << power << " - " << o1.size() << ", " << o2.size();
 
     power /= (double)(o1.size()+o2.size());
 
