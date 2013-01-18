@@ -21,7 +21,7 @@ Rectangle {
     }
 
     function valueSlot(value) {
-        console.log("valueSlot() called with " + value);
+        //console.log("valueSlot() called with " + value);
         visualization.setValue(value);
     }
 

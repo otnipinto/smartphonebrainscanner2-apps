@@ -10,6 +10,17 @@ Rectangle {
     property double power: 0.0
     property double maxPower: 200.0
 
+    property bool shapeHasDynamicSize: AppSettings.value("ShapeHasDynamicSize",true)
+
+    Component.onDestruction: {
+        // Store the settings.
+        // This will ensure that the default setting will be stored
+        // if the setting file is just created/the value was never stored.
+        // But also useful if the code is changed to allow user modification
+        // of settings at runtime.
+        AppSettings.setValue("ShapeHasDynamicSize",shapeHasDynamicSize);
+    }
+
     function setValue(value) {
         currentValue = value;
         /*if (maxPower < value) {
@@ -22,7 +33,10 @@ Rectangle {
             baselineValue = value;
             console.debug("New min: " + baselineValue);
         }
-        squareVisualiztion.width = currentValue;
+
+        if (shapeHasDynamicSize)
+            squareVisualiztion.width = currentValue;
+
         setColor();
     }
 
