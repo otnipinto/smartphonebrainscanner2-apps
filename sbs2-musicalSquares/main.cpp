@@ -1,6 +1,6 @@
 #include <QtGui/QApplication>
 #include "qmlapplicationviewer.h"
-#include <dtuemotivreader.h>
+//#include <dtuemotivreader.h>
 #include <myemotivcallback.h>
 #include <QtDeclarative>
 

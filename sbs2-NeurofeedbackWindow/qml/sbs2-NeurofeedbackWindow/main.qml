@@ -8,6 +8,7 @@ Rectangle {
     id: page
 
     property string title: AppSettings.value("ApplicationName","NeurofeedbackWindow")
+    property int colorMap: AppSettings.value("ColorMapNumber",1)
 
     signal startRecording(string user, string description)
     signal stopRecording()
@@ -15,9 +16,36 @@ Rectangle {
     signal turnSpectrogramOff()
     signal event(string event)
 
+    Component.onCompleted: {
+        // Init the color map.
+        // TODO:  Make this more dynamic via a settings file.
+        ColorUtils.reset();
+        switch(colorMap) {
+        case 1: {
+            ColorUtils.addColor(0.0,   0,   0, 255);  // blue
+            ColorUtils.addColor(0.5, 255, 255,   0);  // yellow
+            ColorUtils.addColor(1.0, 255,   0,   0);  // red
+            break;
+        }
+        case 2: {
+            ColorUtils.addColor(0.0,   0,   0, 255);  // blue
+            ColorUtils.addColor(0.5, 127, 127, 127);  // gray
+            ColorUtils.addColor(1.0, 255,   0,   0);  // red
+            break;
+        }
+        default: {
+            ColorUtils.addColor(0.0,   0,   0,   0);  // black
+            ColorUtils.addColor(1.0, 255,   0,   0);  // red
+            break;
+        }
+        }
+
+    }
+
     Component.onDestruction: {
         // Store the settings.
         AppSettings.setValue("ApplicationName",title);
+        AppSettings.setValue("ColorMapNumber",colorMap)
     }
 
     function valueSlot(value) {

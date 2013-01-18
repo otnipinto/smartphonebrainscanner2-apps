@@ -16,7 +16,8 @@ QML_IMPORT_PATH =
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    mycallback.cpp
+    mycallback.cpp \
+    colorutils.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -27,7 +28,8 @@ include(../../smartphonebrainscanner2-core/src/sbs2_binary_decryptor.pri)
 
 HEADERS += \
     mycallback.h \
-    settingswrapper.h
+    settingswrapper.h \
+    colorutils.h
 
 RESOURCES += \
     resources.qrc

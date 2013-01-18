@@ -4,6 +4,7 @@
 
 #include "mycallback.h"
 #include "settingswrapper.h"
+#include "colorutils.h"
 
 #include "hardware/emotiv/sbs2emotivdatareader.h"
 
@@ -25,9 +26,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QmlApplicationViewer viewer;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
 
-
     SettingsWrapper* settingsWrapper = new SettingsWrapper(app.data());
     viewer.rootContext()->setContextProperty("AppSettings", settingsWrapper);
+
+    ColorUtils* colorUtils = new ColorUtils(app.data());
+    viewer.rootContext()->setContextProperty("ColorUtils", colorUtils);
 
     viewer.setMainQmlFile(QLatin1String("qml/sbs2-NeurofeedbackWindow/main.qml"));
 

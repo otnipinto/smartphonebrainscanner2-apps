@@ -45,53 +45,13 @@ Rectangle {
     }
 
     function setColor() {
-        //TODO: function translating value/baseline into color
-        var r = 0.0;
-        var g = 0.0;
-        var b = 0.0;
-
-        //if (power == 0)
-          //  return Qt.rgba(0.5,0.5,0.5,1);
-
         power = (currentValue - baselineValue) / (maxPower - baselineValue);
         if (power < 0.0)
             power = 0.0;
         if (power > 1.0)
             power = 1.0;
 
-/*
-        if (power < 0.6 * maxPower)
-        {
-            r = 75.0 - 2.3 * power;
-            g = 172.0 - 4.6 * power;
-            b = 198.0 - 5.2 * power;
-        }
-        else
-        {
-            r = 195.0 + 4.125 * (power - 0.6 * maxPower);
-            g = 214.0 - 13.25 * (power - 0.6 * maxPower);
-            b = 155.0 - 18.125 * (power - 0.6 * maxPower);
-        }
-        r = r / 256.0;
-        g = g / 256.0;
-        b = b / 256.0;
-*/
-
-        r = power;
-        var tmpg = power - 0.5;
-        g = 1.0 - 2.0*(tmpg > 0 ? tmpg : -tmpg);
-        b = 1.0 - power*2.0;
-        b = b > 1.0 ? 1.0 : b
-
-        //return Qt.rgba(r,g,b,1)
-        squareVisualiztion.color = Qt.rgba(r,g,b,1);
-/*
-        if (currentValue > baselineValue)
-            squareVisualiztion.color = "red"
-        if (currentValue == baselineValue)
-            squareVisualiztion.color = "gray"
-        if (currentValue < baselineValue)
-            squareVisualiztion.color = "blue"*/
+        squareVisualiztion.color = ColorUtils.getColor(power);
     }
 
 }
