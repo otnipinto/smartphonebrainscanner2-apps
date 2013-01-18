@@ -3,11 +3,18 @@
 #include <QtDeclarative>
 
 #include "mycallback.h"
+#include "settingswrapper.h"
+
 #include "hardware/emotiv/sbs2emotivdatareader.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
+
+    // The following will be used for settings.
+    QCoreApplication::instance()->setOrganizationName("IMM");
+    QCoreApplication::instance()->setOrganizationDomain("IMM");
+    QCoreApplication::instance()->setApplicationName("NeurofeedbackWindow");
 
     qDebug() << "catalogPath: "<<Sbs2Common::setDefaultCatalogPath();
     qDebug() << "rootAppPath: "<<Sbs2Common::setDefaultRootAppPath();
@@ -17,10 +24,18 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     QmlApplicationViewer viewer;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
+
+
+    SettingsWrapper* settingsWrapper = new SettingsWrapper(app.data());
+    viewer.rootContext()->setContextProperty("AppSettings", settingsWrapper);
+
     viewer.setMainQmlFile(QLatin1String("qml/sbs2-NeurofeedbackWindow/main.qml"));
+
+
     viewer.setResizeMode(QDeclarativeView::SizeRootObjectToView);
     viewer.showMaximized();
     //viewer.showExpanded();
+
 
     QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
 
