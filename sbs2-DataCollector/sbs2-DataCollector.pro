@@ -64,3 +64,4 @@ OTHER_FILES += \
     android/res/drawable-ldpi/icon.png \
     android/res/drawable-mdpi/icon.png \
     android/res/values/libs.xml
+
