@@ -2,7 +2,7 @@ import QtQuick 1.0
 
 Rectangle {
     id: squareVisualiztion
-    width: 100
+    width: 500 // 2/3 of min(screen.width, screen.height)
     height: width
     color: "gray"
     property double currentValue: 0.0

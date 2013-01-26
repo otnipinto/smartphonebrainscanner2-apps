@@ -99,6 +99,12 @@ Rectangle {
         label: "user"
         x: 20
         y: 100
+        opacity: 1
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 1000
+            }
+        }
     }
 
     MyTextInput {
@@ -106,6 +112,12 @@ Rectangle {
         label: "description"
         x: 20
         y: 230
+        opacity: 1
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 1000
+            }
+        }
     }
 
     Button {
@@ -125,6 +137,8 @@ Rectangle {
             page.state = "show";
             //page.event("STARTED;"+ user.text + ";"+description.text)
             page.startRecording(user.text, description.text);
+            user.opacity = 0;
+            description.opacity = 0;
 
         }
     }
