@@ -3,7 +3,7 @@ import Qt 4.7
 Rectangle {
     anchors.fill: parent
     id: setupScreen
-    color: "white"
+    color: "black"
     property int counter: 0
     property int direction: 1
 
@@ -16,9 +16,15 @@ Rectangle {
             direction = 1
     }
 
+    Behavior on opacity {
+        NumberAnimation {
+            duration: 200
+        }
+    }
+
     Rectangle {
         color: parent.color
-        border.color: "darkGrey"
+        border.color: "gray"
         border.width: 4
         anchors.centerIn: parent
         width: parent.width - 10
@@ -97,67 +103,64 @@ Rectangle {
     MyTextInput {
         id: user
         label: "user"
-        x: 20
-        y: 100
-        opacity: 1
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 1000
-            }
-        }
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 20
+        anchors.topMargin: 100
     }
 
     MyTextInput {
         id: description
         label: "description"
-        x: 20
-        y: 230
-        opacity: 1
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 1000
-            }
+        anchors.top: user.bottom
+        anchors.left: user.left
+        anchors.topMargin: 20
+    }
+
+    Button {
+        id: start
+        text: "Start"
+        visible: page.state === "recordedBaseline" ? true : false
+        anchors.left: description.left
+        anchors.top: description.bottom
+        anchors.topMargin: 20
+        onClicked: {
+            page.state = "started";
+            //page.event("STARTED;"+ user.text + ";"+description.text)
+            page.startRecording(user.text, description.text);
+        }
+    }
+
+    Button {
+        id: recordBaseline
+        text: "Rec. Baseline"
+        anchors.left: start.left
+        anchors.top: start.bottom
+        anchors.topMargin: 20
+        onClicked: {
+            page.state = "recordingBaseline";
         }
     }
 
     Button {
         id: quit
-        text: "quit"
-        y: 80
-        x: page.width-quit.width
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.rightMargin: 20
+        anchors.topMargin: 100
+        text: "Quit"
         onClicked: Qt.quit()
     }
 
-    Button {
-        id: start
-        text: "start"
-        y: 330
-        x: 0
-        onClicked: {
-            page.state = "show";
-            //page.event("STARTED;"+ user.text + ";"+description.text)
-            page.startRecording(user.text, description.text);
-            user.opacity = 0;
-            description.opacity = 0;
-
-        }
-    }
 
     Rectangle {
         id: aliveIndicator
         width: 15* (setupScreen.counter+1)/100.0
         height: start.height
         color: "black"
-        anchors.bottom: start.bottom
-        anchors.left: start.right
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        anchors.bottomMargin: 20
     }
-
-
-    Behavior on opacity {
-        NumberAnimation { duration: 300; easing.type: Easing.InOutBounce }
-    }
-    Behavior on x {
-        NumberAnimation { duration: 200; easing.type: Easing.InOutBounce }
-    }
-
 }

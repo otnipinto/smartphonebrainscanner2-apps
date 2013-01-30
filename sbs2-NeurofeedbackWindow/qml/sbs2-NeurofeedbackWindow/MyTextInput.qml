@@ -2,18 +2,17 @@ import Qt 4.7
 
 Item
 {
-    x: 100
-    y: 100
+    id: myTextInput
     property alias label : label.text
     property alias text : textInput.text
-    property int fakeWidth: 260
-    property int fakeHeight: 80
+
+    width: 280
+    height: 80
 
 
     Rectangle {
         id: input
-        width: parent.fakeWidth
-        height: parent.fakeHeight
+        anchors.fill: parent
         color: "lightGray"
         border.color: "black"
 
@@ -43,6 +42,9 @@ Item
         TextInput {
             id: textInput
 
+            width: 200
+            height: 80
+
             color: "black"
             font.bold: true
             font.pointSize: 20
@@ -53,20 +55,17 @@ Item
             anchors.leftMargin: 10
             anchors.topMargin: 30
         }
-    }
 
-    Rectangle {
-        width: 140
-        height: 40
-        color: "gray"
-        border.color: "black"
         Text {
             id: label
-            anchors.centerIn: parent
+            anchors.left: parent.left
+            anchors.top: parent.top
+            font.pixelSize: 14
+            anchors.leftMargin: 5
+            anchors.topMargin: 5
+            font.italic: true
+            color: "gray"
         }
-        anchors.bottom: parent.top
-        anchors.bottomMargin: -5
-        anchors.left: parent.left
-        anchors.leftMargin: 5
     }
+
 }

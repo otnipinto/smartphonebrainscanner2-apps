@@ -6,6 +6,10 @@ Rectangle {
     width: 1280
     height: 700
     id: page
+    color: "black"
+
+    property string state: "init"
+    property bool hasRecordedBaseline: false
 
     property string title: AppSettings.value("ApplicationName","NeurofeedbackWindow")
     property int colorMap: AppSettings.value("ColorMapNumber",1)
@@ -15,6 +19,28 @@ Rectangle {
     signal turnSpectrogramOn(int samples, int length, int delta)
     signal turnSpectrogramOff()
     signal event(string event)
+
+    Timer {
+        id: dummyTimer
+        interval: 3000
+        repeat: false
+        onTriggered: handleBaselineRecorded()
+    }
+
+    onStateChanged: {
+        if (state === "recordingBaseline") {
+            setupScreen.opacity = 0;
+            dummyTimer.restart() // dummy function (for now)
+        } else if (state === "recordedBaseline") {
+            setupScreen.opacity = 1
+        } else if (state === "started") {
+            setupScreen.opacity = 0
+        }
+    }
+
+    function handleBaselineRecorded() {
+        state = "recordedBaseline";
+    }
 
     Component.onCompleted: {
         // Init the color map.
@@ -53,7 +79,10 @@ Rectangle {
         visualization.setValue(value);
     }
 
-    SetupScreen {}
+    SetupScreen {
+        id: setupScreen
+    }
+
     Visualization {
         id: visualization
         anchors.centerIn: parent

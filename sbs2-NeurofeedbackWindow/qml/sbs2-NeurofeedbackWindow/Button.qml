@@ -4,7 +4,7 @@ Rectangle {
     id: button
     width: 180
     height: 60
-    color: "black"
+    color: "white"
     property alias text : label.text
 
     signal clicked()
@@ -15,7 +15,7 @@ Rectangle {
 
     Text {
         id: label
-        color: "white"
+        color: "black"
         text: parent.desc
         font.pointSize: 20
         anchors.centerIn: parent

@@ -34,9 +34,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     viewer.setMainQmlFile(QLatin1String("qml/sbs2-NeurofeedbackWindow/main.qml"));
 
-
     viewer.setResizeMode(QDeclarativeView::SizeRootObjectToView);
-    viewer.showMaximized();
+    viewer.showFullScreen();
     //viewer.showExpanded();
 
 
