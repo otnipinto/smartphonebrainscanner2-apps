@@ -117,8 +117,8 @@ Rectangle {
 
         if (value < 407 && visualization.visible)
             badChannelValue += (407 - value);
-        if (badChannelValue >= badChannelThreshold)
-            page.state = "failed";
+        /*if (badChannelValue >= badChannelThreshold)
+            page.state = "failed";*/
     }
 
     SetupScreen {

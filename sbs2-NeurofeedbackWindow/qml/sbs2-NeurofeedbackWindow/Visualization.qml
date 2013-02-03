@@ -8,6 +8,8 @@ Rectangle {
     property double currentValue: 0.0
     property double baselineValue: 20.0
     property double power: 0.0
+
+    property double minPower: 10.0
     property double maxPower: 200.0
 
     property bool shapeHasDynamicSize: AppSettings.value("ShapeHasDynamicSize",true)
@@ -21,18 +23,13 @@ Rectangle {
         AppSettings.setValue("ShapeHasDynamicSize",shapeHasDynamicSize);
     }
 
+    onBaselineValueChanged: {
+        minPower = baselineValue * 0.5;
+        maxPower = baselineValue * 2.0;
+    }
+
     function setValue(value) {
         currentValue = value;
-        /*if (maxPower < value) {
-            maxPower = value;
-            console.debug("New max: " + maxPower);
-        }*/
-        if (currentValue > maxPower)
-            currentValue = maxPower;
-        if (value < baselineValue && value > 10) {
-            baselineValue = value;
-            console.debug("New min: " + baselineValue);
-        }
 
         if (shapeHasDynamicSize)
             squareVisualiztion.width = currentValue;
@@ -45,7 +42,7 @@ Rectangle {
     }
 
     function setColor() {
-        power = (currentValue - baselineValue) / (maxPower - baselineValue);
+        power = (currentValue - minPower) / (maxPower - minPower);
         if (power < 0.0)
             power = 0.0;
         if (power > 1.0)

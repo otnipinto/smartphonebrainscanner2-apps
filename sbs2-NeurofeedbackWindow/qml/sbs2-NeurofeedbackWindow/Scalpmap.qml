@@ -13,8 +13,8 @@ Rectangle {
         for (var i=0; i<children.length; ++i) {
             if (children[i].name === name)
                 children[i].value = value;
-            if (value != 0)
-                console.log(children[i].name + " = " + value);
+            //if (value != 0)
+                //console.log(children[i].name + " = " + value);
         }
     }
 
