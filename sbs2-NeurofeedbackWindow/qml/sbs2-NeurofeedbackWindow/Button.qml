@@ -2,7 +2,7 @@ import Qt 4.7
 
 Rectangle {
     id: button
-    width: 180
+    width: 200
     height: 60
     color: "white"
     property alias text : label.text

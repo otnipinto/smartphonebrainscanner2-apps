@@ -18,20 +18,20 @@ Item
 
         Rectangle {
             id: clearField
-            width: 40
+            width: 32
             height: width
             color: parent.color
-            border.width: 1
+            border.width: 3
             border.color: "black"
-            anchors.left: parent.right
-            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.top: parent.top
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "X"
                 font.bold: true
-                font.pointSize: 20
-                color: "black"
+                font.pointSize: 18
+                color: "red"
             }
             MouseArea {
                 anchors.fill: parent

@@ -35,19 +35,21 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.setMainQmlFile(QLatin1String("qml/sbs2-NeurofeedbackWindow/main.qml"));
 
     viewer.setResizeMode(QDeclarativeView::SizeRootObjectToView);
-    viewer.showFullScreen();
-    //viewer.showExpanded();
+    //viewer.showFullScreen();
+    viewer.showExpanded();
 
 
     QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
 
     QObject::connect(myCallback,SIGNAL(valueSignal(QVariant)),rootObject,SLOT(valueSlot(QVariant)));
+    QObject::connect(myCallback,SIGNAL(cqValues(QVariant,QVariant)),rootObject,SLOT(cqChanged(QVariant,QVariant)));
 
     QObject::connect(app.data(), SIGNAL(aboutToQuit()), sbs2DataReader, SLOT(aboutToQuit()));
 	QObject::connect((QObject*)viewer.engine(), SIGNAL(quit()), app.data(), SLOT(quit()));
 
     QObject::connect(rootObject,SIGNAL(startRecording(QString,QString)),
                      myCallback,SLOT(startRecording(QString,QString)));
+    QObject::connect(rootObject,SIGNAL(stopRecording()),myCallback,SLOT(stopRecording()));
 
     QObject::connect(rootObject,SIGNAL(turnSpectrogramOff()),myCallback,SLOT(turnChannelSpectrogramOff()));
     QObject::connect(rootObject,SIGNAL(turnSpectrogramOn(int,int,int)),myCallback,SLOT(turnChannelSpectrogramOn(int,int,int)));

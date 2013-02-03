@@ -126,7 +126,6 @@ Rectangle {
         anchors.topMargin: 20
         onClicked: {
             page.state = "started";
-            //page.event("STARTED;"+ user.text + ";"+description.text)
             page.startRecording(user.text, description.text);
         }
     }
@@ -139,6 +138,7 @@ Rectangle {
         anchors.topMargin: 20
         onClicked: {
             page.state = "recordingBaseline";
+            page.startRecording(user.text, description.text+"_BASELINE");
         }
     }
 

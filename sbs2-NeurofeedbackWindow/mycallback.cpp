@@ -23,6 +23,9 @@ void MyCallback::getData(Sbs2Packet *packet)
     sbs2DataHandler->record();
     if (isRecording)
         sbs2DataHandler->spectrogramChannel();
+
+    if (!(packet->cq == -1))
+        emit cqValues(packet->cqName,packet->cq);
 }
 
 void MyCallback::spectrogramUpdatedSlot()

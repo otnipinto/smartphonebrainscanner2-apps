@@ -54,4 +54,13 @@ Rectangle {
         squareVisualiztion.color = ColorUtils.getColor(power);
     }
 
+    function setDummyValue(power) {
+        if (power < 0.0)
+            power = 0.0;
+        if (power > 1.0)
+            power = 1.0;
+
+        squareVisualiztion.color = ColorUtils.getColor(power);
+    }
+
 }
