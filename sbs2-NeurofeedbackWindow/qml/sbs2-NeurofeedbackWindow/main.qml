@@ -15,11 +15,17 @@ Rectangle {
     property int accBaselineCount: 0
     property double accBaseline: 0.0
     property alias calculatedBaseline: visualization.baselineValue
+    property bool hasBaseline: false
 
     property int badChannelValue: 0
     property int badChannelThreshold: 1000
     property bool isSpectrogramOn: false
     property int seenValues: 0
+
+    // For now, this is just in the ini file.
+    property int preTestBaselineDuration:  AppSettings.value("PreTestBaselineDuration",5 * 60 * 1000)  // 5 mins
+    property int testDuration:  AppSettings.value("TestDuration",5 * 60 * 1000)  // 5 mins
+    property int postTestBaselineDuration:  AppSettings.value("PostTestBaselineDuration",5 * 60 * 1000)  // 5 mins
 
     signal startRecording(string user, string description)
     signal stopRecording()
@@ -27,39 +33,71 @@ Rectangle {
     signal turnSpectrogramOff()
     signal event(string event)
 
-    Timer {
-        id: baselineTimer
-        interval: 5 /** 60*/ * 1000  // 5 mins
-        repeat: false
-        onTriggered: handleBaselineRecorded()
-    }
-
     onStateChanged: {
-        if (state === "recordingBaseline") {
+        if (state === "recordingPreTestBaseline") {
             // reset the accumulator
             accBaseline = 0.0;
             accBaselineCount = 0;
             setupScreen.opacity = 0;
-            baselineTimer.restart();
+            preTestBaselineTimer.restart();
+            visualization.visible = true;
+        } else if (state === "recordingPostTestBaseline") {
+            // reset the accumulator
+            accBaseline = 0.0;
+            accBaselineCount = 0;
+            setupScreen.opacity = 0;
+            postTestBaselineTimer.restart();
             visualization.visible = true;
         } else if (state === "recordedBaseline") {
             if (accBaselineCount > 0)
                 calculatedBaseline = accBaseline / accBaselineCount;
             setupScreen.opacity = 1
             visualization.visible = false;
+            hasBaseline = true;
             console.log("Calculated Baseline: "+ calculatedBaseline);
+        } else if (state === "recordedTest") {
+            setupScreen.opacity = 1
+            visualization.visible = false;
+            console.log("Recorded test");
         } else if (state === "started") {
             setupScreen.opacity = 0
             visualization.visible = true;
+            testTimer.restart();
         } else if (state === "failed") {
             console.log("Too many bad channels/electrodes.  Bailing out.");
             //Qt.quit();
         }
     }
 
+    Timer {
+        id: preTestBaselineTimer
+        interval: preTestBaselineDuration
+        repeat: false
+        onTriggered: handleBaselineRecorded()
+    }
+
+    Timer {
+        id: postTestBaselineTimer
+        interval: postTestBaselineDuration
+        repeat: false
+        onTriggered: handleBaselineRecorded()
+    }
+
     function handleBaselineRecorded() {
         stopRecording();
         state = "recordedBaseline";
+    }
+
+    Timer {
+        id: testTimer
+        interval: testDuration
+        repeat: false
+        onTriggered: handleTestRecorded()
+    }
+
+    function handleTestRecorded() {
+        stopRecording();
+        state = "recordedTest";
     }
 
     Component.onCompleted: {
@@ -91,7 +129,11 @@ Rectangle {
     Component.onDestruction: {
         // Store the settings.
         AppSettings.setValue("ApplicationName",title);
-        AppSettings.setValue("ColorMapNumber",colorMap)
+        AppSettings.setValue("ColorMapNumber",colorMap);
+        AppSettings.setValue("PreTestBaselineDuration", preTestBaselineDuration);
+        AppSettings.setValue("TestDuration", testDuration);
+        AppSettings.setValue("PostTestBaselineDuration", postTestBaselineDuration);
+
     }
 
     function valueSlot(value) {

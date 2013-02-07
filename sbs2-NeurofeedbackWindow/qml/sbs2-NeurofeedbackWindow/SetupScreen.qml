@@ -41,7 +41,7 @@ Rectangle {
     Text {
         x: 20;
         y: 20;
-        color: "black"
+        color: "white"
         text: page.title
         font.family: "Helvetica"
         font.pointSize: 27
@@ -120,11 +120,12 @@ Rectangle {
     Button {
         id: start
         text: "Start"
-        visible: page.state === "recordedBaseline" ? true : false
+        visible: page.hasBaseline
         anchors.left: description.left
         anchors.top: description.bottom
         anchors.topMargin: 20
         onClicked: {
+            console.debug("Start recording test.")
             page.state = "started";
             page.startRecording(user.text, description.text);
         }
@@ -137,8 +138,16 @@ Rectangle {
         anchors.top: start.bottom
         anchors.topMargin: 20
         onClicked: {
-            page.state = "recordingBaseline";
-            page.startRecording(user.text, description.text+"_BASELINE");
+            if (page.state === "init") {
+                console.debug("Start recording pre-test baseline.")
+                page.state = "recordingPreTestBaseline";
+                page.startRecording(user.text, description.text+"_BASELINE_PRE");
+            } else {
+                console.debug("Start recording post-test baseline.")
+                page.state = "recordingPostTestBaseline";
+                page.startRecording(user.text, description.text+"_BASELINE_POST");
+            }
+
         }
     }
 

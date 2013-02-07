@@ -31,9 +31,6 @@ Rectangle {
     function setValue(value) {
         currentValue = value;
 
-        if (shapeHasDynamicSize)
-            squareVisualiztion.width = currentValue;
-
         setColor();
     }
 
@@ -47,6 +44,9 @@ Rectangle {
             power = 0.0;
         if (power > 1.0)
             power = 1.0;
+
+        if (shapeHasDynamicSize)
+            squareVisualiztion.width = 450.0 + ((power-0.5) * 200.0);
 
         squareVisualiztion.color = ColorUtils.getColor(power);
     }
