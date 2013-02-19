@@ -37,6 +37,13 @@ Rectangle {
 	anchors.top: parent.top
 	width: 50
 	height: 50
+    Text
+    {
+    anchors.centerIn: parent
+    font.pixelSize: 40
+    color: "white";
+    text: "X"
+    }
 	MouseArea
 	{
 	    anchors.fill: parent
