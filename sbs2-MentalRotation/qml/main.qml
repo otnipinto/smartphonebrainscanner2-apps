@@ -51,28 +51,28 @@ Rectangle {
             accBaselineCount = 0;
             setupScreen.opacity = 0;
             preTestBaselineTimer.restart();
-            visualization.visible = true;
+            experimentView.visible = true;
         } else if (state === "recordingPostTestBaseline") {
             // reset the accumulator
             accBaseline = 0.0;
             accBaselineCount = 0;
             setupScreen.opacity = 0;
             postTestBaselineTimer.restart();
-            visualization.visible = true;
+            experimentView.visible = true;
         } else if (state === "recordedBaseline") {
             if (accBaselineCount > 0)
                 calculatedBaseline = accBaseline / accBaselineCount;
             setupScreen.opacity = 1
-            visualization.visible = false;
+            experimentView.visible = false;
             hasBaseline = true;
             console.log("Calculated Baseline: "+ calculatedBaseline);
         } else if (state === "recordedTest") {
             setupScreen.opacity = 1
-            visualization.visible = false;
+            experimentView.visible = false;
             console.log("Recorded test");
         } else if (state === "started") {
             setupScreen.opacity = 0
-            visualization.visible = true;
+            experimentView.visible = true;
             testTimer.restart();
         } else if (state === "failed") {
             console.log("Too many bad channels/electrodes.  Bailing out.");
@@ -125,13 +125,12 @@ Rectangle {
 
     function valueSlot(value) {
         //console.log("valueSlot() called with " + value);
-
         if (state === "recordingPreTestBaseline" || state === "recordingPostTestBaseline") {
             accBaseline += value;
             accBaselineCount++;
-            visualization.setDummyValue(Math.random())
+            experimentView.setDummyValue(Math.random())
         } else
-            visualization.setValue(value);
+            experimentView.setValue(value);
     }
 
     function cqChanged(channel, value) {
@@ -155,13 +154,22 @@ Rectangle {
     }
 
     MentalRotationView {
-        id: mentalRotation
+        id: experimentView
         anchors.centerIn: parent
+
+        visible: false
+
+        MouseArea {
+            anchors.fill: parent
+            onPressAndHold: {
+                Qt.quit();
+            }
+        }
     }
 
     /*
     Visualization {
-        id: visualization
+        id: experimentView
         anchors.centerIn: parent
         visible: false
 

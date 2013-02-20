@@ -29,9 +29,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     SettingsWrapper* settingsWrapper = new SettingsWrapper(app.data());
 
 #if defined(Q_OS_ANDROID)
-    settingsWrapper->setValue("ImageBasePath", settingsWrapper->value("ImageBasePath", "/sdcard/smartphonebrainscanner2_data/mentalrotationimages"));
+    settingsWrapper->setValue("ImageBasePath", settingsWrapper->value("ImageBasePath", "/sdcard/smartphonebrainscanner2_data/mentalrotation256"));
 #else
-    settingsWrapper->setValue("ImageBasePath", settingsWrapper->value("ImageBasePath", QDir::toNativeSeparators(QDir::homePath())+"/smartphonebrainscanner2_data/mentalrotationimages"));
+    settingsWrapper->setValue("ImageBasePath", settingsWrapper->value("ImageBasePath", QDir::toNativeSeparators(QDir::homePath())+"/smartphonebrainscanner2_data/mentalrotation256"));
 #endif
 
     viewer.rootContext()->setContextProperty("AppSettings", settingsWrapper);
