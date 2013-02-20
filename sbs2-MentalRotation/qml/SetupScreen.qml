@@ -1,4 +1,4 @@
-import Qt 4.7
+import QtQuick 1.1
 
 Rectangle {
     anchors.fill: parent
@@ -159,7 +159,7 @@ Rectangle {
         anchors.topMargin: 20
         font.pointSize: 12
         font.italic: true
-        text: "(last known baseline:  " + visualization.baselineValue + ")"
+        text: "(last known baseline:  " + page.calculatedBaseline + ")"
     }
 
     Button {

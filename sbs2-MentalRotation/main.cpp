@@ -27,6 +27,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
 
     SettingsWrapper* settingsWrapper = new SettingsWrapper(app.data());
+
+#if defined(Q_OS_ANDROID)
+    settingsWrapper->setValue("ImageBasePath", settingsWrapper->value("ImageBasePath", "/sdcard/smartphonebrainscanner2_data/mentalrotationimages"));
+#else
+    settingsWrapper->setValue("ImageBasePath", settingsWrapper->value("ImageBasePath", QDir::toNativeSeparators(QDir::homePath())+"/smartphonebrainscanner2_data/mentalrotationimages"));
+#endif
+
     viewer.rootContext()->setContextProperty("AppSettings", settingsWrapper);
 
     ColorUtils* colorUtils = new ColorUtils(app.data());

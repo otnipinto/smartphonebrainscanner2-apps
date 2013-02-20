@@ -1,4 +1,4 @@
-import QtQuick 1.0
+import QtQuick 1.1
 
 Rectangle {
     width: 1280
@@ -10,11 +10,10 @@ Rectangle {
     property bool hasRecordedBaseline: false
 
     property string title: AppSettings.value("ApplicationName","MentalRotation")
-    property int colorMap: AppSettings.value("ColorMapNumber",1)
 
     property int accBaselineCount: 0
     property double accBaseline: 0.0
-    property alias calculatedBaseline: visualization.baselineValue
+    property double calculatedBaseline: 0.0
     property bool hasBaseline: false
 
     property int badChannelValue: 0
@@ -32,6 +31,18 @@ Rectangle {
     signal turnSpectrogramOn(int samples, int length, int delta)
     signal turnSpectrogramOff()
     signal event(string event)
+
+    property bool isPortrait: false
+
+    onWidthChanged: checkOrientation()
+    onHeightChanged: checkOrientation()
+
+    function checkOrientation() {
+        if (page.width < page.height)
+            isPortrait = true;
+        else
+            isPortrait = false;
+    }
 
     onStateChanged: {
         if (state === "recordingPreTestBaseline") {
@@ -101,35 +112,11 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        // Init the color map.
-        // TODO:  Make this more dynamic via a settings file.
-        ColorUtils.reset();
-        switch(colorMap) {
-        case 1: {
-            ColorUtils.addColor(0.0,   0,   0, 255);  // blue
-            ColorUtils.addColor(0.5, 255, 255,   0);  // yellow
-            ColorUtils.addColor(1.0, 255,   0,   0);  // red
-            break;
-        }
-        case 2: {
-            ColorUtils.addColor(0.0,   0,   0, 255);  // blue
-            ColorUtils.addColor(0.5, 127, 127, 127);  // gray
-            ColorUtils.addColor(1.0, 255,   0,   0);  // red
-            break;
-        }
-        default: {
-            ColorUtils.addColor(0.0,   0,   0,   0);  // black
-            ColorUtils.addColor(1.0, 255,   0,   0);  // red
-            break;
-        }
-        }
-
     }
 
     Component.onDestruction: {
         // Store the settings.
         AppSettings.setValue("ApplicationName",title);
-        AppSettings.setValue("ColorMapNumber",colorMap);
         AppSettings.setValue("PreTestBaselineDuration", preTestBaselineDuration);
         AppSettings.setValue("TestDuration", testDuration);
         AppSettings.setValue("PostTestBaselineDuration", postTestBaselineDuration);
@@ -167,6 +154,12 @@ Rectangle {
         id: setupScreen
     }
 
+    MentalRotationView {
+        id: mentalRotation
+        anchors.centerIn: parent
+    }
+
+    /*
     Visualization {
         id: visualization
         anchors.centerIn: parent
@@ -179,4 +172,5 @@ Rectangle {
             }
         }
     }
+    */
 }
