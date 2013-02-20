@@ -151,6 +151,17 @@ Rectangle {
         }
     }
 
+    Text {
+        id: baselineValueLabel
+        color: "white"
+        anchors.left: recordBaseline.left
+        anchors.top: recordBaseline.bottom
+        anchors.topMargin: 20
+        font.pointSize: 12
+        font.italic: true
+        text: "(last known baseline:  " + visualization.baselineValue + ")"
+    }
+
     Button {
         id: quit
         anchors.right: parent.right

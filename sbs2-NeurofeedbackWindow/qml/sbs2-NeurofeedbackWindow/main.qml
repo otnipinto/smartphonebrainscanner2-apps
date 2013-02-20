@@ -139,7 +139,7 @@ Rectangle {
     function valueSlot(value) {
         //console.log("valueSlot() called with " + value);
 
-        if (state === "recordingBaseline") {
+        if (state === "recordingPreTestBaseline" || state === "recordingPostTestBaseline") {
             accBaseline += value;
             accBaselineCount++;
             visualization.setDummyValue(Math.random())
