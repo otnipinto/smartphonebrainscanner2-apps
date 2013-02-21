@@ -13,7 +13,7 @@ Item {
         rows: page.isPortrait ? 2 : 1
         spacing: 5
 
-        property string imageBasePath: AppSettings.value("ImageBasePath","")  // shoud already be set in main.cpp
+        property string imageBasePath: AppSettings.value("ImageBasePath","")  // should already be set in main.cpp
 
         Component.onCompleted: {
             setImage(0,2,'x',145,false);

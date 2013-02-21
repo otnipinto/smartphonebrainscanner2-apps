@@ -51,28 +51,28 @@ Rectangle {
             accBaselineCount = 0;
             setupScreen.opacity = 0;
             preTestBaselineTimer.restart();
-            experimentView.visible = true;
+            experiment.visible = true;
         } else if (state === "recordingPostTestBaseline") {
             // reset the accumulator
             accBaseline = 0.0;
             accBaselineCount = 0;
             setupScreen.opacity = 0;
             postTestBaselineTimer.restart();
-            experimentView.visible = true;
+            experiment.visible = true;
         } else if (state === "recordedBaseline") {
             if (accBaselineCount > 0)
                 calculatedBaseline = accBaseline / accBaselineCount;
             setupScreen.opacity = 1
-            experimentView.visible = false;
+            experiment.visible = false;
             hasBaseline = true;
             console.log("Calculated Baseline: "+ calculatedBaseline);
         } else if (state === "recordedTest") {
             setupScreen.opacity = 1
-            experimentView.visible = false;
+            experiment.visible = false;
             console.log("Recorded test");
         } else if (state === "started") {
             setupScreen.opacity = 0
-            experimentView.visible = true;
+            experiment.visible = true;
             testTimer.restart();
         } else if (state === "failed") {
             console.log("Too many bad channels/electrodes.  Bailing out.");
@@ -153,19 +153,70 @@ Rectangle {
         id: setupScreen
     }
 
-    MentalRotationView {
-        id: experimentView
+    Column {
+        id: experiment
         anchors.centerIn: parent
+        spacing: 30
 
         visible: false
 
-        MouseArea {
-            anchors.fill: parent
-            onPressAndHold: {
-                Qt.quit();
+        MentalRotationView {
+            id: experimentView
+            MouseArea {
+                anchors.fill: parent
+                onPressAndHold: {
+                    Qt.quit();
+                }
             }
         }
+
+        Row {
+            id: experimentButtons
+            spacing: 30
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Button {
+                width: 60
+                height: 60
+                text: "="
+                color: "green"
+
+                onClicked: userSelectedIsEqual(true)
+            }
+
+            Button {
+                width: 60
+                height: 60
+                text: "≠"
+                color: "red"
+
+                onClicked: userSelectedIsEqual(false)
+            }
+
+        }
     }
+
+    function initiateExperiment() {
+        // Input from Camilla:
+
+        // Stimuli består af 16 forskellige figurer som er roteret om x eller z aksen, og har en a og en b version, som er spejlvendt. filnavnet består af figurnummer_rotationsakse_rotationsgrad_a/bversion.
+        // Hver task består af 192 stimulisæt samt 2 testsæt.
+        // For de 192 stimuli sæt, skal hver figur være repræsenteret lige mange gange, dvs. 12 gange. Ligeledes skal rotationsaksen, dvs. af de 12 figurer, skal 6 være roteret om x aksen og 6 om z aksen.
+        // Rotationsvinklen er vinklen mellem de to stimuli, og den kan enter være 30, 60, 90, 120, 150 eller 180 grader. Hver rotationsvinkel skal også være repræsenteret lige mange gange dvs. 32 gange hver.
+        // Da perspektivet af figurerne med rotationsgrad 0, 90, 180 og 270 er vanskelige af se, skal disse filer ikke benyttes. Dette kan undgår hvis kun filer der ender på rotationsgrad 5 benyttes.
+        // Det skal være total random hvorvidt stimulisættet er spejvendt (a og b) eller ej (a og a).
+
+
+        // TOOD:  initialize lists fulfilling the above rules and make permutations to run through.
+        // we should probably store the current sample count from the device together with the choice and the currently shown figure...
+        // eg. figure parameters, sample count, choice, correct choice...
+    }
+
+    function userSelectedIsEqual( userThinksFiguresAreTheSame ) {
+        // if the set number is the same, then
+    }
+
+
 
     /*
     Visualization {

@@ -1,11 +1,14 @@
 import QtQuick 1.1
 
-Rectangle {
+Item {
     id: button
-    width: 200
-    height: 60
-    color: "white"
+
+    property alias background: buttonRect.color
+    property alias color: label.color
     property alias text : label.text
+
+    width: 210
+    height: 50
 
     signal clicked()
 
@@ -13,13 +16,20 @@ Rectangle {
         mouseArea.clicked.connect(button.clicked)
     }
 
-    Text {
-        id: label
-        color: "black"
-        text: parent.desc
-        font.pointSize: 20
-        anchors.centerIn: parent
-        font.bold: true
+    Rectangle {
+        id: buttonRect
+        anchors.fill: parent
+        color: "white"
+
+        Text {
+            id: label
+            color: "black"
+            text: parent.desc
+            font.pointSize: 20
+            anchors.centerIn: parent
+            font.bold: true
+        }
+
     }
 
     MouseArea {
@@ -27,3 +37,4 @@ Rectangle {
         anchors.fill: parent
     }
 }
+
