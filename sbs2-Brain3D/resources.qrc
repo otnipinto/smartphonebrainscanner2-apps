@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>colortable1</file>
+        <file>colortable2</file>
+        <file>colortable3</file>
+        <file>colortable4</file>
+        <file>dtu.jpg</file>
+        <file>fshader.normals.glsl</file>
+        <file>vertface_brain_reduced.obj</file>
+        <file>vshader.normals.glsl</file>
+        <file>logo4.jpg</file>
+        <file>LOGO-EPICENTER-4.png</file>
+    </qresource>
+</RCC>
