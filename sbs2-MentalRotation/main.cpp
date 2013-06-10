@@ -20,13 +20,19 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qDebug() << "catalogPath: "<<Sbs2Common::setDefaultCatalogPath();
     qDebug() << "rootAppPath: "<<Sbs2Common::setDefaultRootAppPath();
 
-    MyCallback* myCallback = new MyCallback();
-    Sbs2EmotivDataReader* sbs2DataReader = Sbs2EmotivDataReader::New(myCallback,0);
-
     QmlApplicationViewer viewer;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
 
     SettingsWrapper* settingsWrapper = new SettingsWrapper(app.data());
+
+    int spectrogramSamples = settingsWrapper->value("spectrogramSamples", 128).toInt(); // Window size
+    int spectrogramLength  = settingsWrapper->value("spectrogramLength", 128).toInt(); // FIXED to 128, indicates the sampling rate
+    int spectrogramDelta  = settingsWrapper->value("spectrogramDelta", 1).toInt(); // Distance in samples between spectrograms
+
+    qDebug() << "(samples, length, delta) = ("<<spectrogramSamples<<", "<<spectrogramLength<<", "<<spectrogramDelta<<")";
+
+    MyCallback* myCallback = new MyCallback(spectrogramSamples,spectrogramLength,spectrogramDelta);
+    Sbs2EmotivDataReader* sbs2DataReader = Sbs2EmotivDataReader::New(myCallback,0);
 
 #if defined(Q_OS_ANDROID)
     settingsWrapper->setValue("ImageBasePath", settingsWrapper->value("ImageBasePath", "/sdcard/smartphonebrainscanner2_data/mentalrotation256"));

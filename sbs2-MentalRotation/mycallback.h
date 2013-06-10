@@ -8,7 +8,7 @@ class MyCallback : public Sbs2Callback
 {
     Q_OBJECT
 public:
-    explicit MyCallback(QObject *parent = 0);
+    explicit MyCallback(int samples, int length, int delta, QObject *parent = 0);
     void getData(Sbs2Packet *packet);
 
 private:

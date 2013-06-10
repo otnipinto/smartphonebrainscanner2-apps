@@ -1,13 +1,13 @@
 #include "mycallback.h"
 
-MyCallback::MyCallback(QObject *parent) :
+MyCallback::MyCallback(int samples, int length, int delta, QObject *parent) :
     Sbs2Callback(parent)
 {
     QObject::connect(sbs2DataHandler,SIGNAL(spectrogramUpdated()),this,SLOT(spectrogramUpdatedSlot()));
     //Parameteres of the spectrogram
-    spectrogramSamples = 128; //Window size
-    spectrogramLength = 128; //FIXED to 128, indicates the sampling rate
-    spectrogramDelta = 1; //Distance in samples between spectrograms
+    spectrogramSamples = samples; // Window size
+    spectrogramLength = length; // FIXED to 128, indicates the sampling rate
+    spectrogramDelta = delta; // Distance in samples between spectrograms
 
     //Example: config 128,128,1 makes a spectrogram on 128 samples every single sample
     //Example: config 128,128,16 makes a spectrogram on 128 samples every 16 samples (8 times/sec)
