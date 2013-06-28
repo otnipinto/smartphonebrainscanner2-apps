@@ -117,6 +117,15 @@ Rectangle {
             ColorUtils.addColor(1.0, 255,   0,   0);  // red
             break;
         }
+        // coloscheme from musical squares
+        case 3: {
+            ColorUtils.addColor(0.0,   0,   0, 0);  // black
+            ColorUtils.addColor(0.166667, 33, 89, 104);  // Dark blue
+            ColorUtils.addColor(0.666666, 75, 172, 198);  // light blue
+            ColorUtils.addColor(0.666667, 33, 89, 104);  // light yellow
+            ColorUtils.addColor(1.0, 228,   108,   10);  // orange
+            break;
+        }
         default: {
             ColorUtils.addColor(0.0,   0,   0,   0);  // black
             ColorUtils.addColor(1.0, 255,   0,   0);  // red
