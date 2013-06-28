@@ -111,18 +111,20 @@ Rectangle {
             ColorUtils.addColor(1.0, 255,   0,   0);  // red
             break;
         }
+        // colorscheme from red/blue square
         case 2: {
             ColorUtils.addColor(0.0,   0,   0, 255);  // blue
-            ColorUtils.addColor(0.5, 127, 127, 127);  // gray
+            ColorUtils.addColor(0.25, 127, 127, 127);  // gray
+            ColorUtils.addColor(0.50, 255,   0,   0);  // red
             ColorUtils.addColor(1.0, 255,   0,   0);  // red
             break;
         }
-        // coloscheme from musical squares
+        // colorscheme from musical squares
         case 3: {
             ColorUtils.addColor(0.0,   0,   0, 0);  // black
-            ColorUtils.addColor(0.166667, 33, 89, 104);  // Dark blue
-            ColorUtils.addColor(0.666666, 75, 172, 198);  // light blue
-            ColorUtils.addColor(0.666667, 33, 89, 104);  // light yellow
+            ColorUtils.addColor(0.25, 33, 89, 104);  // Dark blue
+            ColorUtils.addColor(0.375, 75, 172, 198);  // light blue
+            ColorUtils.addColor(0.376, 33, 89, 104);  // light yellow
             ColorUtils.addColor(1.0, 228,   108,   10);  // orange
             break;
         }
