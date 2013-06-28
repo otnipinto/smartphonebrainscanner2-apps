@@ -22,10 +22,15 @@ Rectangle {
         // of settings at runtime.
         AppSettings.setValue("ShapeHasDynamicSize",shapeHasDynamicSize);
     }
-
+    // power min/max values used for red/blue square paradigme
+    // onBaselineValueChanged: {
+    //    minPower = baselineValue * 0.5;
+    //    maxPower = baselineValue * 2.0;
+    //}
+    // power min/max values used for switching between red/blue colorscheme and musical squares colorscheme
     onBaselineValueChanged: {
-        minPower = baselineValue * 0.5;
-        maxPower = baselineValue * 2.0;
+        minPower = baselineValue * 0;
+        maxPower = baselineValue * 4.0;
     }
 
     function setValue(value) {
