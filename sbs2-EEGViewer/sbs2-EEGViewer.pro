@@ -67,7 +67,7 @@ OTHER_FILES += \
     android/src/org/kde/necessitas/origo/QtActivity.java \
     android/AndroidManifest.xml
 
-
+android: {
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-f30b09-Default_build_Debug/release/ -lsbs2emotivdecryptor
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-f30b09-Default_build_Debug/debug/ -lsbs2emotivdecryptor
 else:unix: LIBS += -L$$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-f30b09-Default_build_Debug/ -lsbs2emotivdecryptor
@@ -78,3 +78,17 @@ DEPENDPATH += $$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build
 win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-f30b09-Default_build_Debug/release/sbs2emotivdecryptor.lib
 else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-f30b09-Default_build_Debug/debug/sbs2emotivdecryptor.lib
 else:unix: PRE_TARGETDEPS += $$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-f30b09-Default_build_Debug/libsbs2emotivdecryptor.a
+}
+
+!android: {
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-desktop-Qt_4_7_4_in_PATH__System__Release/release/ -lsbs2emotivdecryptor
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-desktop-Qt_4_7_4_in_PATH__System__Release/debug/ -lsbs2emotivdecryptor
+else:unix: LIBS += -L$$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-desktop-Qt_4_7_4_in_PATH__System__Release/ -lsbs2emotivdecryptor
+
+INCLUDEPATH += $$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-desktop-Qt_4_7_4_in_PATH__System__Release
+DEPENDPATH += $$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-desktop-Qt_4_7_4_in_PATH__System__Release
+
+win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-desktop-Qt_4_7_4_in_PATH__System__Release/release/sbs2emotivdecryptor.lib
+else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-desktop-Qt_4_7_4_in_PATH__System__Release/debug/sbs2emotivdecryptor.lib
+else:unix: PRE_TARGETDEPS += $$PWD/../../sbs2-emotiv-decryptor-source/sbs2emotivdecryptor-build-desktop-Qt_4_7_4_in_PATH__System__Release/libsbs2emotivdecryptor.a
+}
