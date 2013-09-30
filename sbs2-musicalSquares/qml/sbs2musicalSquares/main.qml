@@ -11,8 +11,9 @@ Rectangle {
     color: "black"
     property string title: "musical squares"
 
-    property int experimentLength: 5*60*1000
-    property int bins: 20
+    property int baselineLength: 60*1000
+    property int experimentLength: 3*60*1000 //changed from 5*60*1000
+    property int bins: 15 //Changed from 20
     property double binDuration: experimentLength/bins
 
     property int binSize: page.width / bins
@@ -83,7 +84,7 @@ Rectangle {
 
 
 	//console.log(eventCounter+ " "+eventCounter*timeTick+ " "+eventDelta);
-	if ((eventCounter*timeTick) >= experimentLength)
+	if ((eventCounter*timeTick) >= baselineLength) // Changed from experimentLength
 	{
 	    page.state = "finished"
 
