@@ -67,7 +67,7 @@ void MyEmotivCallback::getData(DtuEmotivPacket *packet)
 void MyEmotivCallback::spectrogramUpdatedSlot()
 {
 
-    int low = 10;
+    int low = 8; //Changed from 10
     int high = 12;
     double power = 0;
 
